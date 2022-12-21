@@ -30,14 +30,14 @@ export const getTransactionReceipt = async (
   confirmations?: number,
   timeout?: number
 ): Promise<TransactionReceipt | null> => {
-  if (confirmations || timeout) {
+  if (confirmations && timeout) {
     try {
       const receipt = await provider.waitForTransaction(
         txHash,
         confirmations,
         timeout
       )
-      return receipt || null
+      return null
     } catch (err) {
       if ((err as Error).message.includes('timeout exceeded')) {
         // return null
